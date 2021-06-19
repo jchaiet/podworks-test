@@ -36,21 +36,21 @@ mongoose
 var podworks = mongoose.connection;
 module.exports = podworks;
 
-var allowedDomains = ["http://localhost:5000", "http://localhost:8000", "http://72.80.156.89"];
+var allowedDomains = ["http://localhost:5000", "http://localhost:8000", "http://72.80.156.89", "https://podworks.herokuapp.com/"];
 
 //Middleware
 app.use(express.json());
 app.use(cors({
   //origin: '*',
-  origin: "http://localhost:5000",
-  /*origin: function(origin, callback){
+  //origin: "http://localhost:5000",
+  origin: function(origin, callback){
     if(!origin) return callback(null, true);
     if(allowedDomains.indexOf(origin) === -1){
       var msg = `This site ${origin} does not have access.`
       return callback(new Error(msg), false)
     }
     return callback(null, true)
-  },*/
+  },
   credentials: true
 }));
 app.use(cookieParser());
