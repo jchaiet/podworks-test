@@ -11,7 +11,7 @@ const emailRegExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9]
 
 exports.register = async (req, res, next) => {
   try{
-    let { full_name, email, password } = req.body;
+    let { full_name, email, role, password } = req.body;
 
     //Validate
     if(!full_name || !email || !password)
@@ -33,7 +33,9 @@ exports.register = async (req, res, next) => {
     const newUser = new User({
       full_name,
       email,
-      password: passwordHash
+      password: passwordHash,
+      role,
+      active: true
     });
 
     const savedUser = await newUser.save();
@@ -56,8 +58,12 @@ exports.login = async (req, res) => {
     if(!email || !password) return res.status(400).json({ msg: "Fields are empty" });
 
     const user = await User.findOne({email: email});
+
     if(!user) 
       return res.status(400).json({ msg: "Wrong email or password" });
+
+    if(user.active === false)
+      return res.status(400).json({ msg: "This account has been deactivated" });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if(!isMatch) 

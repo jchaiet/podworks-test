@@ -25,6 +25,9 @@ let userSchema = new Schema({
   avatar: {
     data: Buffer,
     type: String
+  },
+  active: {
+    type: Boolean
   }
 },{
   timestamps: true,

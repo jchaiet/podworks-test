@@ -44,7 +44,6 @@ app.use(cors({
   //origin: '*',
   //origin: "http://localhost:5000",
   origin: function(origin, callback){
-    console.log('orogin,', origin)
     if(!origin) return callback(null, true);
     
     if(allowedDomains.indexOf(origin) === -1){
