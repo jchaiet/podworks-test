@@ -76,16 +76,9 @@ exports.updateTeam = async (req, res) => {
 }
 
 exports.deleteTeam = async (req, res) => {
-  const existingTeam = await Team.findOne({ admin: req.user, _id: req.params.id });
+  const existingTeam = await Team.findOne({ _id: req.params.id });
   
-  if(!existingTeam) return res.status(400).json({ msg: "No property found with this ID" });
-
-  //Validate
-  if(!existingTeam.admin.includes(req.user)){
-    return res.status(401).json({
-      error: "Unauthorized"
-    });
-  }
+  if(!existingTeam) return res.status(400).json({ msg: "No team found with this ID" });
 
   const deletedTeam = await Team.findByIdAndDelete(req.params.id);
   res.json(deletedTeam);

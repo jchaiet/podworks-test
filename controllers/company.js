@@ -82,7 +82,7 @@ exports.updateCompany = async (req, res) => {
 exports.deleteCompany = async (req, res) => {
   const existingCompany = await Company.findOne({ admin: req.user, _id: req.params.id });
   
-  if(!existingCompany) return res.status(400).json({ msg: "No property found with this ID" });
+  if(!existingCompany) return res.status(400).json({ msg: "No company found with this ID" });
 
   //Validate
   if(!existingCompany.admin.includes(req.user)){
