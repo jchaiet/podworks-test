@@ -12,7 +12,7 @@ const companyRoutes = require('./routes/company');
 const teamRoutes = require('./routes/team');
 const weekRoutes = require('./routes/week');
 const podRoutes = require('./routes/pod');
-
+const mailRoutes = require('./routes/mail')
 //App
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -63,6 +63,7 @@ app.use('/api/companies', companyRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/weeks', weekRoutes);
 app.use('/api/pods', podRoutes);
+app.use('/api/mail', mailRoutes);
 
 //Serve static files from the React frontend app
 //app.use(express.static(path.join(__dirname, 'web/build')));

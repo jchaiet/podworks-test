@@ -26,8 +26,8 @@ let userSchema = new Schema({
     data: Buffer,
     type: String
   },
-  active: {
-    type: Boolean
+  status: {
+    type: String
   }
 },{
   timestamps: true,

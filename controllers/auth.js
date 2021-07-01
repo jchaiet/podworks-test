@@ -35,7 +35,7 @@ exports.register = async (req, res, next) => {
       email,
       password: passwordHash,
       role,
-      active: true
+      status: 'active'
     });
 
     const savedUser = await newUser.save();
@@ -62,7 +62,7 @@ exports.login = async (req, res) => {
     if(!user) 
       return res.status(400).json({ msg: "Wrong email or password" });
 
-    if(user.active === false)
+    if(user.status === 'inactive')
       return res.status(400).json({ msg: "This account has been deactivated" });
 
     const isMatch = await bcrypt.compare(password, user.password);
